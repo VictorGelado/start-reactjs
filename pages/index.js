@@ -58,7 +58,6 @@ function Title(props) {
         </div>
     )
 }
-
 export default HomePage */
 
 export default function PaginaInicial() {
