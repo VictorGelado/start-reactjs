@@ -107,6 +107,10 @@ export default function PaginaInicial() {
                 mainColorLight: appConfig.theme.colors.primary[400],
                 mainColorStrong: appConfig.theme.colors.primary[600],
               }}
+
+              onClick={() => {
+                appConfig.username = username; 
+              }}
             />
           </Box>
           {/* Formulário */}
