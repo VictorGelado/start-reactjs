@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/router'
 import { Box, Button, Text, TextField, Image } from '@skynexui/components'
 import appConfig from '../config.json';
-import Footer from '../components/footer';
+import Footer from '../src/components/footer';
 
 
 function Title(props) {
@@ -78,7 +78,7 @@ export default function PaginaInicial() {
           >
             <Title tag="h2">Boas vindas de volta!</Title>
             <Text variant="body3" styleSheet={{ marginBottom: '32px', color: appConfig.theme.colors.neutrals[300] }}>
-              {appConfig.name}
+              Aluracord - Matrix ({username})
             </Text>
 
             <TextField
@@ -94,8 +94,7 @@ export default function PaginaInicial() {
               }}
               onChange={function (event) {
                 const value = event.target.value;
-                setUsername(value);
-                appConfig.name = `Aluracord - Matrix (${username})`
+                setUsername(value);                
               }}
             />
             <Button
