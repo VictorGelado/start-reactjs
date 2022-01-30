@@ -13,7 +13,7 @@ export default function Footer() {
 
           <style jsx>{`
             div {
-              background: ${appConfig.theme.colors.neutrals[700]};
+              background: ${appConfig.theme.colors.neutrals[900]};
               width: 100%;
               height: 8vh;
               position: absolute;
