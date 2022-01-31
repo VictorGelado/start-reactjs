@@ -1,23 +1,47 @@
 import { Box, Text, TextField, Image, Button } from '@skynexui/components';
 import React, { useState } from 'react';
 import appConfig from '../config.json';
+import { createClient } from '@supabase/supabase-js';
+
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTY0MzYyNTEyNSwiZXhwIjoxOTU5MjAxMTI1fQ.EtlmH3IoZGpBW_VhXB8ei_S6kIFAWTgZVuhY2VVjdNU';
+const SUPABASE_URL = 'https://ebdawophqwgmphydhxql.supabase.co';
+const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 export default function ChatPage() {
 
     const [message, setMessage] = React.useState('');
     const [listMessage, setListMessage] = React.useState([]);
 
+    React.useEffect(() => {
+        supabaseClient
+            .from('messages')
+            .select('*')
+            .order('id', { ascending: false })
+            .then(({ data }) => {
+                setListMessage(data);
+            });
+    }, [MessageList]);
+
     function handleNewMessage(newMessage) {
         const message = {
-            id: listMessage.length + 1,
             from: appConfig.username,
             text: newMessage,
         }
+
+        supabaseClient
+            .from('messages')
+            .insert([
+                message
+            ])
+            .then(({ data }) => {
+                setListMessage([
+                     data[0],
+                     ...listMessage
+                 ]);
+
+            });
+
         setMessage('');
-        setListMessage([
-            message,
-            ...listMessage
-        ])
     }
 
     return (
@@ -159,7 +183,7 @@ function MessageList(props) {
                                     display: 'inline-block',
                                     marginRight: '8px',
                                 }}
-                                src={`https://github.com/${appConfig.username}.png`}
+                                src={`https://github.com/${event.from}.png`}
                             />
                             <Text tag="strong">
                                 {event.from}
