@@ -9,6 +9,16 @@ const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5v
 const SUPABASE_URL = 'https://ebdawophqwgmphydhxql.supabase.co';
 const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
+
+function messagesRealTime(addMessage) {
+    return supabaseClient
+        .from('messages')
+        .on('insert', (event) => {
+            addMessage(event.new);        
+        })
+        .subscribe();
+}
+
 export default function ChatPage() {
     const route = useRouter();
     const userLogin = route.query.username;
@@ -23,7 +33,21 @@ export default function ChatPage() {
             .then(({ data }) => {
                 setListMessage(data);
             });
-    }, [MessageList]);
+        
+        const subscription = messagesRealTime((newMessage) => {
+            setListMessage((currentMessages) => {
+                return [
+                    newMessage,
+                    ...currentMessages,
+                ]
+            });
+        });    
+
+        return () => {
+            subscription.unsubscribe();
+        }
+
+    }, [listMessage]);
 
     function handleNewMessage(newMessage) {
         const message = {
@@ -37,11 +61,7 @@ export default function ChatPage() {
                 message
             ])
             .then(({ data }) => {
-                setListMessage([
-                    data[0],
-                    ...listMessage
-                ]);
-
+              
             });
 
         setMessage('');
@@ -209,7 +229,7 @@ function MessageList(props) {
                         </Box>
 
                         {event.text.startsWith(':sticker:') ? (
-                            <Image src={event.text.replace(':sticker:')} />
+                            <Image src={event.text.replace(':sticker:', '')} />
                         ): (
                             event.text
                         )}
