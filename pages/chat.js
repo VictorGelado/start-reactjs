@@ -2,13 +2,15 @@ import { Box, Text, TextField, Image, Button } from '@skynexui/components';
 import React, { useState } from 'react';
 import appConfig from '../config.json';
 import { createClient } from '@supabase/supabase-js';
+import { useRouter } from 'next/router';
 
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTY0MzYyNTEyNSwiZXhwIjoxOTU5MjAxMTI1fQ.EtlmH3IoZGpBW_VhXB8ei_S6kIFAWTgZVuhY2VVjdNU';
 const SUPABASE_URL = 'https://ebdawophqwgmphydhxql.supabase.co';
 const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 export default function ChatPage() {
-
+    const route = useRouter();
+    const userLogin = route.query.username;
     const [message, setMessage] = React.useState('');
     const [listMessage, setListMessage] = React.useState([]);
 
@@ -24,7 +26,7 @@ export default function ChatPage() {
 
     function handleNewMessage(newMessage) {
         const message = {
-            from: appConfig.username,
+            from: userLogin,
             text: newMessage,
         }
 
@@ -35,9 +37,9 @@ export default function ChatPage() {
             ])
             .then(({ data }) => {
                 setListMessage([
-                     data[0],
-                     ...listMessage
-                 ]);
+                    data[0],
+                    ...listMessage
+                ]);
 
             });
 
@@ -165,11 +167,11 @@ function MessageList(props) {
                             marginBottom: '12px',
                             hover: {
                                 backgroundColor: appConfig.theme.colors.neutrals[700],
-                            },                            
+                            },
                         }}
                     >
                         <Box
-                            styleSheet={{                                
+                            styleSheet={{
                                 marginBottom: '8px',
                                 display: 'flex',
                                 alignItems: 'center',
