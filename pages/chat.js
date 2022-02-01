@@ -225,7 +225,7 @@ function MessageList(props) {
                                 tag="span"
                             >
                                 {(new Date().toLocaleDateString())}
-                            </Text> complet
+                            </Text>
                         </Box>
 
                         {event.text.startsWith(':sticker:') ? (
