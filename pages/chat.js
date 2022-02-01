@@ -119,7 +119,11 @@ export default function ChatPage() {
                                 color: appConfig.theme.colors.neutrals[200],
                             }}
                         />
-                        <ButtonSendSticker />
+                        <ButtonSendSticker 
+                            onStickerClick={(sticker) => {
+                                handleNewMessage(`:sticker:${sticker}`)
+                            }}
+                        />
                     </Box>
                 </Box>
             </Box>
