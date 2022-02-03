@@ -55,7 +55,7 @@ And many more. All I learned was the basics, but I'm going to go further and fur
 
 ## Author
 
-Build by **VictorGelado**
+Made by **VictorGelado**
 
 <div>
   <a href="https://www.instagram.com/victorgelado_dev/" target="_blank"><img src="https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white"></a>
