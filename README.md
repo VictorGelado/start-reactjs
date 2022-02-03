@@ -57,6 +57,10 @@ And many more. All I learned was the basics, but I'm going to go further and fur
 
 Build by **VictorGelado**
 
+- Linkedin: [Victor Manoel](https://www.linkedin.com/in/victorgelado/)
+- Instagram: [VictorGelado](https://www.instagram.com/victorgelado_dev/)
+- Email: [VictorGelado](mailto:victorgeladocontato@gmail.com)
+
 ## Acknowledgments
 
 I want to thank [alura](https://alura.com.br/), it helped a lot in my beginning with React js.
